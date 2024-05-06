@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{{ app_name }}{% endblock %}</title>
+
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" />
+
+    <style>
+        .bg-image-vertical {
+            position: relative;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: auto 100%;
+        }
+
+        @media (min-width: 1025px) {
+            .h-custom-2 {
+                height: 100%;
+            }
+        }
+    </style>
+
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% include '_components/_toasts.html.twig' %}
+
+<section class="vh-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 text-black">
+                <div class="px-5 ms-xl-4">
+                    <img src="{{ asset('images/logo_128.png') }}" class="me-2 mt-n4" alt="{{ app_name }} logo" width="30px">
+                    <span class="h1 fw-bold mb-0">{{ app_name }}</span>
+                </div>
+
+                <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+
+            <div class="col-sm-6 px-0 d-none d-sm-block">
+                <img src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                     alt="{{ app_name }} login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
