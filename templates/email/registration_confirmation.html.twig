@@ -1,0 +1,24 @@
+{% extends "email/base.html.twig" %}
+
+{% block content %}
+    Hi {{ user }}, <br>
+    <br>
+    You did it! 🎉 Congratulations on joining the {{ app_name }} family! 🚀 We're thrilled to have you on board. <br>
+    <br>
+    Your account has been successfully created, and now the adventure begins.<br>
+    But fist, you need to activate your account before you can log in. Click the link below to activate your account: <br>
+    <br>
+    {% include 'email/button.html.twig' with {url: signedUrl, text: 'Confirm my account'} %} <br>
+    <br>
+    If you have some trouble with the button above, copy and paste the URL below into your favorite web browser: <br>
+    <a href="{{ signedUrl }}">{{ signedUrl }}</a> <br>
+    <br>
+    <br>
+    If you have any questions, ideas, or just want to say hello, feel free to reach out. Our super friendly team is here for you. <br>
+    <br>
+    Thanks for being part of {{ app_name }}! See you on the other side. <br>
+    <br>
+    Cheers, <br>
+    The {{ app_name }} Team
+{% endblock %}
+

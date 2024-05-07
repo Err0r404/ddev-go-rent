@@ -4,7 +4,7 @@ import $ from 'jquery';
 import htmx from 'htmx.org';
 
 // Import custom scripts
-import './_toasts.js';
+import './scripts/toasts.js';
 
 // Import styles
 import 'bootstrap/dist/css/bootstrap.min.css';

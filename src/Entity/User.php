@@ -62,8 +62,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $lastLoggedAt = null;
 
-    #[ORM\Column]
-    private ?bool $enabled = null;
+    #[ORM\Column(type: 'boolean', options: ['default' => true])]
+    private bool $enabled = true;
     
     public function __toString(): string
     {
@@ -181,7 +181,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isEnabled(): ?bool
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    public function getEnabled(): bool
     {
         return $this->enabled;
     }
