@@ -110,6 +110,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return array_unique($roles);
     }
+    
+    public function getRolesLabel(): array
+    {
+        $roles = $this->getRoles();
+        
+        // Remove default 'ROLE_USER' value
+        if (($key = array_search('ROLE_USER', $roles)) !== false) {
+            unset($roles[$key]);
+        }
+        
+        $labelRoles = [];
+        foreach ($roles as $role) {
+            $labelRoles[] = array_search($role, User::ROLES);
+        }
+        
+        return array_unique($labelRoles);
+    }
+    
+    public function getRolesColor(): array
+    {
+        $roles = $this->getRoles();
+        
+        // Remove default 'ROLE_USER' value
+        if (($key = array_search('ROLE_USER', $roles)) !== false) {
+            unset($roles[$key]);
+        }
+        
+        $colorRoles = [];
+        foreach ($roles as $role) {
+            $colorRoles[] = User::ROLES_COLORS[$role];
+        }
+        
+        return array_unique($colorRoles);
+    }
 
     /**
      * @param list<string> $roles

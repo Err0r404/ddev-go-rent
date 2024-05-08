@@ -1,0 +1,55 @@
+{% set route = app.request.attributes.get('_route') %}
+
+<div class="d-none d-lg-flex flex-column flex-shrink-0 p-3 lc-block bg-light" style="width: 280px;">
+    <!-- Logo -->
+    <a class="fs-4 fw-semibold navbar-brand mb-4" href="{{ path('app_admin_home') }}" hx-boost="true">
+        <img class="img-fluid me-1 mt-n1" width="25" height="25" src="{{ asset('images/logo_128.svg') }}" alt="{{ app_name }} logo">
+        {{ app_name }}
+    </a>
+
+    <!-- Sidebar Navigation -->
+    <ul class="nav nav-pills link flex-column mb-auto" hx-boost="true">
+        <li>
+            <a href="javascript:;" class="nav-link link {% if 'app_admin_dashboard' in route %}active link-light fw-semibold{% else %}link-dark{% endif %}">
+                <i class="bi me-2 bi-house"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ path('app_admin_user_index') }}" class="nav-link link {% if 'app_admin_user_' in route %}active link-light fw-semibold{% else %}link-dark{% endif %}">
+                <i class="bi me-2 bi-people-fill"></i>
+                Users
+            </a>
+        </li>
+    </ul>
+
+    <!-- Settings Avatar-->
+    <div class="dropup" style="cursor: pointer">
+        <a data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle link-dark text-decoration-none d-flex align-items-center gap-3">
+            <img class="rounded-circle" width="32" height="32" src="https://placehold.co/128x128" alt="{{ app.user }} avatar">
+
+            <div class="text-dark" style="max-width: 170px;">
+                <p class="mb-0 fw-semibold" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                    {{ app.user }}
+                </p>
+            </div>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end" hx-boost="true">
+            <li>
+                <a class="dropdown-item" href="javascript:;">
+                    My profile
+                </a>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item text-danger" href="{{ path('app_logout') }}">
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
