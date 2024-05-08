@@ -7,6 +7,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class MailerManager
@@ -36,6 +37,27 @@ class MailerManager
             ->context([
                 'user' => $user,
                 'signedUrl' => $signatureComponent->getSignedUrl(),
+            ]);
+        
+        $this->mailer->send($email);
+    }
+    
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function sendForgotPasswordEmail(User $user, ResetPasswordToken $resetPasswordToken): void
+    {
+        $from = new Address($_ENV['MAILER_ADDRESS'], $_ENV['MAILER_NAME']);
+        $to   = new Address($user->getEmail(), $user->__toString());
+        
+        $email = (new TemplatedEmail())
+            ->from($from)
+            ->to($to)
+            ->subject("Reset Your Password on {$_ENV['APP_NAME']} 🗝️")
+            ->htmlTemplate('email/forgot-password.html.twig')
+            ->context([
+                'user'       => $user,
+                'resetToken' => $resetPasswordToken,
             ]);
         
         $this->mailer->send($email);

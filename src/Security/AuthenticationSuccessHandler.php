@@ -7,6 +7,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 
+/**
+ * Be sure to add the following to your security.yaml file in firewalls > main > form_login:
+ * success_handler: App\Security\AuthenticationSuccessHandler
+ */
 class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): ?Response
