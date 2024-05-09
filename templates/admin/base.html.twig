@@ -23,6 +23,7 @@
 <!-- You're dealing with two main views here. -->
 <!-- One goes up to the 'lg' breakpoint, and the other starts from 'lg' and above.-->
 <!-- On mobile, the sidebar content gets shifted into an offcanvas menu for easy access.-->
+<!-- See https://ui.bootstrap.ninja/components/application/sidebar-layouts/ -->
 
 <div class="d-flex overflow-hidden vh-100">
     <!-- Desktop Sidebar - Display from lg breakpoint, hide on smaller devices -->
@@ -36,18 +37,14 @@
         <!-- Content -->
         <div class="row h-75">
             <div class="col-12 p-lg-4">
-                <div class="lc-block mb-3">
-                    <div>
-                        <h1 class="fw-semibold ls-n2 fs-4 text-black">Dashboard</h1>
-                    </div>
-                </div>
+{#                <div class="lc-block mb-3">#}
+{#                    <div>#}
+{#                        <h1 class="fw-semibold ls-n2 fs-4 text-black">Dashboard</h1>#}
+{#                    </div>#}
+{#                </div>#}
 
                 <!-- Dummy Content - Replace it -->
                 {% block body %}{% endblock %}
-
-{#                <div class="lc-block border rounded h-75 position-relative">#}
-{#                    <div class="position-absolute top-0 end-0 h-100 w-100" style="background-image: radial-gradient(rgba(var(--bs-body-color-rgb),.2) 1px, transparent 0); background-size: 1rem 1rem;"></div>#}
-{#                </div>#}
             </div>
         </div>
     </div>

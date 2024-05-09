@@ -1,4 +1,9 @@
-{{ form_start(form) }}
+{% set path = path('app_admin_user_new') %}
+{% if user.id %}
+    {% set path = path('app_admin_user_edit', {'id': user.id}) %}
+{% endif %}
+
+{{ form_start(form, {'attr': {'hx-post': path, 'hx-target': 'body'}}) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

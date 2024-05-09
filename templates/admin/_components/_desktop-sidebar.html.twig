@@ -10,7 +10,7 @@
     <!-- Sidebar Navigation -->
     <ul class="nav nav-pills link flex-column mb-auto" hx-boost="true">
         <li>
-            <a href="javascript:;" class="nav-link link {% if 'app_admin_dashboard' in route %}active link-light fw-semibold{% else %}link-dark{% endif %}">
+            <a href="{{ path('app_admin_dashboard') }}" class="nav-link link {% if 'app_admin_dashboard' in route %}active link-light fw-semibold{% else %}link-dark{% endif %}">
                 <i class="bi me-2 bi-house"></i>
                 Dashboard
             </a>
@@ -26,7 +26,7 @@
 
     <!-- Settings Avatar-->
     <div class="dropup" style="cursor: pointer">
-        <a data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle link-dark text-decoration-none d-flex align-items-center gap-3">
+        <a data-bs-toggle="dropdown" aria-expanded="false" class="small dropdown-toggle link-dark text-decoration-none d-flex align-items-center gap-3">
             <img class="rounded-circle" width="32" height="32" src="https://placehold.co/128x128" alt="{{ app.user }} avatar">
 
             <div class="text-dark" style="max-width: 170px;">

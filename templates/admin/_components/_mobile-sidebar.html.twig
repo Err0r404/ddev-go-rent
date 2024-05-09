@@ -1,75 +1,38 @@
-<div class="row border-bottom mb-4 mb-lg-5 px-lg-4 py-lg-1 d-lg-none bg-dark">
+{% set route = app.request.attributes.get('_route') %}
+
+<div class="row border-bottom mb-4 mb-lg-5 px-lg-4 py-lg-1 d-lg-none bg-light">
     <!-- Sidebar with Offcanvas menu - Display on mobile, hides from lg breakpoint -->
     <div class="col">
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid"><button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSimpleDarkNavbarSidebarApplication" aria-controls="offcanvasSimpleDarkNavbarSidebarApplication" aria-label="Toggle navigation">
+        <nav class="navbar navbbg-light bg-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSimpleDarkNavbarSidebarApplication" aria-controls="offcanvasSimpleDarkNavbarSidebarApplication" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="offcanvas offcanvas-start bg-dark" tabindex="-1" id="offcanvasSimpleDarkNavbarSidebarApplication" aria-labelledby="offcanvasSimpleDarkNavbarSidebarApplicationLabel">
-
+                <div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSimpleDarkNavbarSidebarApplication" aria-labelledby="offcanvasSimpleDarkNavbarSidebarApplicationLabel">
                     <div class="offcanvas-header">
-                        <a class="navbar-brand" href="#">
-                            <img class="img-fluid wp-image-6253" width="40" height="40" src="https://ui.bootstrap.ninja/wp-content/uploads/2024/03/ninja_logo_light.svg" srcset="" sizes="" alt="">
+                        <a class="navbar-brand" href="{{ path('app_admin_home') }}" hx-boost="true">
+                            <img class="img-fluid wp-image-6253" width="25" height="25" src="{{ asset('images/logo_128.svg') }}" alt="{{ app_name }} logo">
+                            {{ app_name }}
                         </a>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
 
                     <div class="offcanvas-body h-100 d-flex flex-column">
-
                         <!-- First Sidebar Navigation -->
-                        <ul class="nav nav-pills nav_left_sidebar_simple_dark flex-column gap-2">
+                        <ul class="nav nav-pills flex-column gap-2 mb-auto" hx-boost="true">
                             <li>
-                                <a href="#" class="nav-link link active" aria-current="page">
-                                    <i class="bi me-3 bi-house"></i>Dashboard
+                                <a href="{{ path('app_admin_dashboard') }}" class="nav-link link {% if 'app_admin_dashboard' in route %}active link-light fw-semibold{% else %}link-dark{% endif %}">
+                                    <i class="bi me-2 bi-house"></i>
+                                    Dashboard
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link ">
-                                    <i class="bi me-3 bi-people-fill"></i>
-                                    Team
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link ">
-                                    <i class="bi me-3 bi-terminal"></i>
-                                    Project
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link ">
-                                    <i class="bi me-3 bi-window-dock"></i>
-                                    Documents
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link ">
-                                    <i class="bi me-3 bi-table"></i>
-                                    Export
-                                </a>
-                            </li>
-                        </ul>
 
-                        <!-- Second Sidebar Navigation (Your Organization) -->
-                        <ul class="nav nav-pills nav_left_sidebar_simple_dark flex-column mb-auto gap-2 mt-5">
                             <li>
-                                <h6 class="dropdown-header text-white fw-semibold ls-1 mb-2">Your Teams:</h6>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link" aria-current="page">
-                                    <i class="bi bi-boxes me-3"></i> Blocks
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link">
-                                    <i class="bi bi-bootstrap me-3"></i>
-                                    Bootstrap Friends
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link ">
-                                    <i class="bi bi-terminal me-3"></i>
-                                    Console
+                                <a href="{{ path('app_admin_user_index') }}" class="nav-link link {% if 'app_admin_user_' in route %}active link-light fw-semibold{% else %}link-dark{% endif %}">
+                                    <i class="bi me-2 bi-people-fill"></i>
+                                    Users
                                 </a>
                             </li>
                         </ul>
@@ -80,16 +43,27 @@
     </div>
 
     <!-- Avatar notification and profile menu -->
-    <div class="col d-flex align-items-center justify-content-end"><!-- First Sidebar Navigation -->
+    <div class="col d-flex align-items-center justify-content-end">
+        <!-- First Sidebar Navigation -->
         <div class="dropdown">
-            <a data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle text-decoration-none d-flex align-items-center gap-3">
-                <img class="rounded-circle" width="32" height="32" src="https://i.pravatar.cc/64?img=40">
+            <a data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle text-decoration-none d-flex align-items-center gap-3 text-body">
+                <img class="rounded-circle" width="32" height="32" src="https://placehold.co/128x128" alt="{{ app.user }} avatar">
             </a>
 
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Your Account</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Log Out</a></li>
+                <li>
+                    <a class="dropdown-item" href="javascript:;">
+                        My profile
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item text-danger" href="{{ path('app_logout') }}">
+                        Logout
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
