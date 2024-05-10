@@ -80,6 +80,14 @@
                                             </li>
                                         {% endif %}
 
+                                        {% if not(user|securizer('ROLE_ADMIN')) and user.enabled %}
+                                            <li>
+                                                <a class="dropdown-item" href="{{ path('app_home', {'_switch_user': user.email}) }}">
+                                                    Impersonate
+                                                </a>
+                                            </li>
+                                        {% endif %}
+
                                         {% if not(user|securizer('ROLE_SUPER_ADMIN')) or (user|securizer('ROLE_SUPER_ADMIN') and is_granted('ROLE_SUPER_ADMIN')) %}
                                             <li>
                                                 <a class="dropdown-item" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">
