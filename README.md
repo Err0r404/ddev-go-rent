@@ -18,6 +18,14 @@ Technical Stack
 - [Bootstrap Icons](https://icons.getbootstrap.com/)
 - [HTMX](https://htmx.org)
 
+Bundles
+---
+
+- [SymfonyCasts VerifyEmailBundle](https://github.com/SymfonyCasts/verify-email-bundle)
+- [SymfonyCasts ResetPasswordBundle](https://github.com/SymfonyCasts/reset-password-bundle)
+- [KNP Paginator Bundle](https://github.com/KnpLabs/KnpPaginatorBundle)
+- [Sonata SEO Bundle](https://github.com/sonata-project/SonataSeoBundle)
+
 Features
 ---
 
@@ -40,6 +48,9 @@ Features
       - Soft Delete 
     - Send Email Verification
     - Impersonation
+- App
+  - SEO
+    - [Sonata SEO Bundle](https://github.com/sonata-project/SonataSeoBundle)
 
 Support
 ---
