@@ -1,0 +1,38 @@
+sonata_seo:
+    encoding: UTF-8
+    page:
+        title: '%env(APP_NAME)%'
+        # title_prefix:  'Prefix |'
+        # title_suffix:  '| Suffix'
+
+        separator: ' – '
+
+        default: sonata.seo.page.default
+
+        metas:
+            charset:
+                UTF-8: ''
+
+            name:
+                keywords: Symfony, PHP
+                description: A Symfony starter project
+                robots: index, follow
+
+            property:
+                # Facebook application settings
+                #'fb:app_id':          XXXXXX
+                #'fb:admins':          admin1, admin2
+
+                # Open Graph information
+                # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
+                'og:site_name': '%env(APP_NAME)%'
+                'og:description': A Symfony starter project
+
+            http-equiv:
+                'Content-Type': text/html; charset=utf-8
+                #'X-Ua-Compatible':      IE=EmulateIE7
+
+        head:
+            'xmlns': http://www.w3.org/1999/xhtml
+            'xmlns:og': http://opengraphprotocol.org/schema/
+            #'xmlns:fb':           "http://www.facebook.com/2008/fbml"

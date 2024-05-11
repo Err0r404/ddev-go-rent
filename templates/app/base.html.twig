@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html {{ sonata_seo_html_attributes() }}>
+{# <html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/"> #}
+<head {{ sonata_seo_head_attributes() }}>
+    {% include '_components/_seo.html.twig' %}
+
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" />
+
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+</body>
+</html>
