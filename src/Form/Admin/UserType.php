@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -35,6 +36,30 @@ class UserType extends AbstractType
         }
         
         $builder
+            ->add(
+                'firstName',
+                TextType::class,
+                [
+                    'required' => true,
+                    'label'    => 'First name',
+                    'attr'     => [
+                        'class'    => 'form-control-solid',
+                        'readonly' => (bool)$options['readonly'],
+                    ],
+                ]
+            )
+            ->add(
+                'lastName',
+                TextType::class,
+                [
+                    'required' => true,
+                    'label'    => 'Last name',
+                    'attr'     => [
+                        'class'    => 'form-control-solid',
+                        'readonly' => (bool)$options['readonly'],
+                    ],
+                ]
+            )
             ->add(
                 'email',
                 EmailType::class,

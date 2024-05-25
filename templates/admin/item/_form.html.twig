@@ -1,0 +1,52 @@
+{% import _self as formMacros %}
+
+{% macro showPrices(price) %}
+    <div class="border-start border-1 mb-3 ps-3">
+        <div class="row">
+            <div class="col-12 col-md-6">{{ form_row(price.duration) }}</div>
+            <div class="col-12 col-md-6">{{ form_row(price.amount, {'group_class': 'input-group-sm'}) }}</div>
+        </div>
+    </div>
+{% endmacro %}
+
+{{ form_start(form) }}
+
+<div class="row">
+    <div class="col-12 col-lg-6">
+        <fieldset>
+            <legend>Informations</legend>
+
+            {{ form_row(form.category) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+        </fieldset>
+    </div>
+
+    <div class="col-12 col-lg-6">
+        <fieldset>
+            <legend>Prices</legend>
+
+            <div id="admin-item-prices" class="list-unstyled"
+                 data-index="{{ form.prices|length > 0 ? form.prices|last.vars.name + 1 : 0 }}"
+                 data-prototype="{{ formMacros.showPrices(form.prices.vars.prototype)|e('html_attr') }}">
+                {% for price in form.prices %}
+                    {{ formMacros.showPrices(price) }}
+                {% endfor %}
+            </div>
+
+            <div class="text-end my-3">
+                <button type="button" class="btn-add-price btn btn-sm btn-outline-primary py-1"
+                        data-collection-holder-id="admin-item-prices">Add a price
+                </button>
+            </div>
+        </fieldset>
+
+    </div>
+</div>
+
+{{ form_widget(form) }}
+
+<button class="btn btn-primary">
+    {{ button_label|default('Save') }}
+</button>
+{{ form_end(form) }}

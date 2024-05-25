@@ -7,8 +7,9 @@ import htmx from 'htmx.org';
 import './scripts/toasts.js';
 
 // Import styles
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'ninjabootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'ninjabootstrap/dist/css/bootstrap.min.css';
+import 'bootswatch/dist/lux/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 
 // Import custom styles

@@ -2,16 +2,16 @@
 
 namespace App\Service;
 
-use App\Entity\User;
+use App\Entity\Item;
 use Doctrine\ORM\EntityManagerInterface;
 
-class UserManager
+class ItemManager
 {
     public function __construct(private readonly EntityManagerInterface $manager)
     {
     }
     
-    public function save(User $entity, bool $flush = true): void
+    public function save(Item $entity, bool $flush = true): void
     {
         $this->manager->persist($entity);
         
@@ -20,11 +20,9 @@ class UserManager
         }
     }
     
-    public function remove(User $entity, bool $flush = true): void
+    public function remove(Item $entity, bool $flush = true): void
     {
-        $entity
-            ->setEmail($entity->getEmail() . '-deleted-' . date('Ymd-His'))
-            ->setDeletedAt(new \DateTimeImmutable());
+        $entity->setDeletedAt(new \DateTimeImmutable());
         
         if ($flush) {
             $this->manager->flush();

@@ -1,10 +1,7 @@
-Symfony Starter
+Go Rent
 ---
 
-A simple starting point for your next Symfony project that can save you a few days of boring setup so you can start 
-working on the fun stuff.
-
-Feel free to fork this repository and use it as a starting point for your next project.
+A fully functional Symfony application to manage a car/bike/whatever rental service.
 
 Technical Stack
 ---

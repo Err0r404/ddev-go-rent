@@ -26,7 +26,7 @@ class AppExtension extends AbstractExtension
         return $this->securizer->isGranted($user, $role);
     }
     
-    public function pluralize(int $count, string $singular, string $plural, string $zero = null): string
+    public function pluralize(int|float $count, string $singular, string $plural, string $zero = null): string
     {
         if ($count > 1){
             return str_replace('{}', $count, $plural);

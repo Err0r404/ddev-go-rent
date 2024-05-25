@@ -1,4 +1,4 @@
-name: ddev-starter
+name: ddev-go-rent
 type: php
 docroot: public
 php_version: "8.3"

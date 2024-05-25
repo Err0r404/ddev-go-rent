@@ -29,13 +29,12 @@
                 <thead class="table-secondary" hx-boost="true">
                 <tr>
                     <th>{{ knp_pagination_sortable(pagination, 'Id', 'u.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Lastname', 'u.lastName') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Firstname', 'u.firstName') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'Email', 'u.email') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'Role', 'u.roles') }}</th>
-                    <th>{{ knp_pagination_sortable(pagination, 'EmailValidatedAt', 'u.emailValidatedAt') }}</th>
-                    <th>{{ knp_pagination_sortable(pagination, 'LastLoggedAt', 'u.lastLoggedAt') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'Enabled', 'u.enabled') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'CreatedAt', 'u.createdAt') }}</th>
-                    <th>{{ knp_pagination_sortable(pagination, 'DeletedAt', 'u.deletedAt') }}</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -43,12 +42,12 @@
                 {% for user in pagination %}
                     <tr {% if user.deletedAt %}class="table-danger"{% endif %}>
                         <td>{{ user.id }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.firstName }}</td>
                         <td>{{ user.email }}</td>
                         <td>
                             <span class="badge text-bg-{{ user.rolesColor|first }}">{{ user.rolesLabel|first }}</span>
                         </td>
-                        <td>{{ user.emailValidatedAt ? user.emailValidatedAt|date : '-' }}</td>
-                        <td>{{ user.lastLoggedAt ? user.lastLoggedAt|date : '-' }}</td>
                         <td>
                             {% if user.enabled %}
                                 <span class="badge rounded-pill text-bg-success">Yes</span>
@@ -57,7 +56,6 @@
                             {% endif %}
                         </td>
                         <td>{{ user.createdAt ? user.createdAt|date : '-' }}</td>
-                        <td>{{ user.deletedAt ? user.deletedAt|date : '-' }}</td>
                         <td class="text-end" hx-boost="true">
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-secondary py-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -126,7 +124,7 @@
                     of {{ pagination.getTotalItemCount() }} entries
                 </div>
 
-                <div>
+                <div hx-boost="true">
                     {{ knp_pagination_render(pagination) }}
                 </div>
             </div>

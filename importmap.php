@@ -16,6 +16,10 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
+    'admin' => [
+        'path' => './assets/admin.js',
+        'entrypoint' => true,
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
@@ -47,6 +51,10 @@ return [
     ],
     'ninjabootstrap/dist/css/bootstrap.min.css' => [
         'version' => '1.0.2',
+        'type' => 'css',
+    ],
+    'bootswatch/dist/lux/bootstrap.min.css' => [
+        'version' => '5.3.3',
         'type' => 'css',
     ],
 ];

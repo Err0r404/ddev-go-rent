@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html {{ sonata_seo_html_attributes() }}>
-{# <html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/"> #}
 <head {{ sonata_seo_head_attributes() }}>
     {% include '_components/_seo.html.twig' %}
 
@@ -14,6 +13,10 @@
     {% endblock %}
 </head>
 <body>
+{% include '_components/_toasts.html.twig' %}
+
+{% include 'app/_components/_navbar.html.twig' %}
+
 {% block body %}{% endblock %}
 </body>
 </html>

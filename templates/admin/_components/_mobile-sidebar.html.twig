@@ -35,6 +35,20 @@
                                     Users
                                 </a>
                             </li>
+
+                            <li>
+                                <a href="{{ path('app_admin_category_index') }}" class="nav-link link {% if 'app_admin_category_' in route %}active link-light fw-semibold{% else %}link-dark{% endif %}">
+                                    <i class="bi me-2 bi-tags-fill"></i>
+                                    Categories
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path('app_admin_item_index') }}" class="nav-link link {% if 'app_admin_item_' in route %}active link-light fw-semibold{% else %}link-dark{% endif %}">
+                                    <i class="bi me-2 bi-boxes"></i>
+                                    Items
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -50,10 +64,18 @@
                 <img class="rounded-circle" width="32" height="32" src="https://placehold.co/128x128" alt="{{ app.user }} avatar">
             </a>
 
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" hx-boost="true">
                 <li>
-                    <a class="dropdown-item" href="javascript:;">
+                    <a class="dropdown-item" href="{{ path('app_admin_user_edit', {'id': app.user.id}) }}">
                         My profile
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ path('app_home') }}">
+                        Back to site
                     </a>
                 </li>
                 <li>
