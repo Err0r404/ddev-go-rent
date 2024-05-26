@@ -5,6 +5,34 @@
 {% block body %}
     {% include 'app/home/_jumbotron.html.twig' %}
 
+    <section class="pb-5">
+        <div class="container bg-light shadow-sm p-5" style="margin-top: -135px">
+            {{ form_start(form, {'attr': {'class': 'row'}}) }}
+{#            <form class="row">#}
+                <div class="col-8 col-md-7 col-lg-4 mt-4 mt-lg-0">
+                    {{ form_row(form.fromDate) }}
+                </div>
+
+                <div class="col-4 col-md-5 col-lg-2 mt-4 mt-lg-0">
+                    {{ form_row(form.fromTime) }}
+                </div>
+
+                <div class="col-8 col-md-7 col-lg-4 mt-4 mt-lg-0">
+                    {{ form_row(form.toDate) }}
+                </div>
+
+                <div class="col-4 col-md-5 col-lg-2 mt-4 mt-lg-0">
+                    {{ form_row(form.toTime) }}
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-primary" type="submit">Find your hero</button>
+                </div>
+            {{ form_end(form) }}
+{#            </form>#}
+        </div>
+    </section>
+
     {% include 'app/home/_processes.html.twig' %}
 
     {# Catalog here #}
