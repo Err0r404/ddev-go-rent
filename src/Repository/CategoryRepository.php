@@ -32,4 +32,19 @@ class CategoryRepository extends ServiceEntityRepository
         return $qb
             ->getQuery();
     }
+    
+    /**
+     * @return array<Category>
+     */
+    public function findCategoriesWithAllItems(): array
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->select('c', 'i')
+            ->leftJoin('c.items', 'i')
+            ->andWhere('c.deletedAt IS NULL')
+            ->andWhere('i.deletedAt IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
 }

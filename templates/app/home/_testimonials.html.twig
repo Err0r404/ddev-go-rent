@@ -1,0 +1,28 @@
+<div class="p-5 text-center bg-primary text-light mb-5">
+    <div class="container py-5">
+        <i class="display-2 bi bi-quote"></i>
+
+        <div class="row">
+            <div class="col-12 col-md-10 col-lg-8 mx-auto">
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="carousel-inner">
+                        {% for i in 0..5 %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <p class="lead">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aperiam assumenda delectus dignissimos distinctio, dolor exercitationem inventore labore mollitia non optio pariatur perferendis perspiciatis, recusandae sint ullam velit. Necessitatibus, tempore?
+                                </p>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="carousel-indicators position-relative">
+                        {% for i in 0..5 %}
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}"
+                                    {% if loop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ loop.index }}"></button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

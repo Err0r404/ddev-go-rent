@@ -3,13 +3,109 @@
 {% block title %}{{ parent() }} – Home{% endblock %}
 
 {% block body %}
-    <div class="p-5 text-center bg-body-tertiary">
-        <div class="container py-5">
-            <h1 class="text-body-emphasis">Hire a Hero, Save the Day!</h1>
-            <p class="col-lg-8 mx-auto lead">
-                Explore our elite team of superheroes readies to tackle any challenge.
-                From heroic action to special missions, we have the hero you need!
-            </p>
+    {% include 'app/home/_jumbotron.html.twig' %}
+
+    {% include 'app/home/_processes.html.twig' %}
+
+    {# Catalog here #}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="fs-1 text-center mb-3">
+                    Our <span class="text-body-secondary">heroes</span>
+                </h2>
+
+                {% for category in categories %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h3 class="h4 fw-bold card-title mb-3">{{ category }}</h3>
+                            <div class="row">
+                                {% for item in category.items %}
+                                    <div class="col-12 {{ loop.last ? '' : 'mb-3' }}">
+                                        <div class="row">
+                                            <div class="col-12 col-md-5 col-lg-3">
+                                                <img src="https://placehold.co/1280x720" class="img-fluid object-fit-fill" alt="{{ item }}">
+                                            </div>
+
+                                            <div class="col-12 col-md-7 col-lg-9 pt-1 pb-0 d-flex align-items-start flex-column">
+                                                <div class="w-100">
+                                                    <h4 class="h3 fw-bold">{{ item }}</h4>
+
+                                                    <p>{{ item.description|nl2br }}</p>
+
+                                                    {% set amountPerDay = item.prices|first.amount %}
+                                                    {% for price in item.prices %}
+                                                        {% if durationInDays >= price.duration %}
+                                                            {% set amountPerDay = price.amount %}
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                    <dl class="row">
+                                                        <dt class="col-sm-2">Min. Duration</dt>
+                                                        <dd class="col-sm-10 mb-0">{{ item.prices|first.duration }} {{ item.prices|first.duration > 1 ? 'days' : 'day'}}</dd>
+
+                                                        <dt class="col-sm-2">Price Per Day</dt>
+                                                        <dd class="col-sm-10 mb-0">{{ amountPerDay/100 }}</dd>
+
+                                                        <dt class="col-sm-2">Total Price</dt>
+                                                        <dd class="col-sm-10 mb-0">{{ amountPerDay/100 }} x {{ durationInDays }} {{ durationInDays > 1 ? 'days' : 'day'}} = {{ amountPerDay/100 * durationInDays }}</dd>
+                                                    </dl>
+                                                </div>
+
+                                                {# Search Item in UnavailableItems #}
+                                                {% set unavailableItem = unavailableItems|filter(unavailableItem => unavailableItem.id == item.id)|first %}
+
+                                                {# If Item is Unavailable #}
+                                                {#                                            {% if unavailableItem != false %}#}
+                                                {#                                                <div class="w-100 mt-auto">#}
+                                                {#                                                    <div class="d-flex align-items-end justify-content-end">#}
+                                                {#                                                        <button type="button" class="btn btn-sm btn-dark disabled" disabled>Unavailable</button>#}
+                                                {#                                                    </div>#}
+                                                {#                                                </div>#}
+                                                {#                                            {% else %}#}
+                                                {#                                                #}{# Search Item in Cart #}
+                                                {#                                                {% set cartItem = cart.cartItems|filter(cartItem => cartItem.item.id == item.id)|first %}#}
+
+                                                {#                                                #}{# If Item is in Cart #}
+                                                {#                                                {% if cartItem != false %}#}
+                                                {#                                                    <div class="w-100 mt-auto">#}
+                                                {#                                                        <div class="d-flex align-items-end justify-content-end">#}
+                                                {#                                                            <form hx-post="#}{#{{ path('app_cart_remove_item', {'id': item.id}) }}#}{#" hx-target="body" action="#}{#{{ path('app_cart_remove_item', {'id': item.id}) }}#}{#" method="post" class="row row-cols-auto justify-content-end form-cart-update">#}
+                                                {#                                                                <div class="col">#}
+                                                {#                                                                    <button type="submit" class="btn btn-sm btn-outline-danger">Remove from Cart</button>#}
+                                                {#                                                                </div>#}
+                                                {#                                                            </form>#}
+                                                {#                                                        </div>#}
+                                                {#                                                    </div>#}
+                                                {#                                                {% else %}#}
+                                                {#                                                    <div class="w-100 mt-auto">#}
+                                                {#                                                        <div class="d-flex align-items-end justify-content-end">#}
+                                                {#                                                            <form hx-post="#}{#{{ path('app_cart_add_item', {'id': item.id}) }}#}{#" hx-target="body" action="#}{#{{ path('app_cart_add_item', {'id': item.id}) }}#}{#" method="post" class="row row-cols-auto justify-content-end form-cart-update">#}
+                                                {#                                                                <div class="col">#}
+                                                {#                                                                    <button type="submit" class="btn btn-sm btn-dark border border-2 border-dark">Add to Cart</button>#}
+                                                {#                                                                </div>#}
+                                                {#                                                            </form>#}
+                                                {#                                                        </div>#}
+                                                {#                                                    </div>#}
+                                                {#                                                {% endif %}#}
+                                                {#                                            {% endif %}#}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
+
+    {% include 'app/home/_testimonials.html.twig' %}
+
+    {% include 'app/home/_services.html.twig' %}
+
+    {% include 'app/home/_faq.html.twig' %}
+
+    {% include 'app/home/_contact.html.twig' %}
 {% endblock %}
