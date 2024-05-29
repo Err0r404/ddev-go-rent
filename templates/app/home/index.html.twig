@@ -8,7 +8,6 @@
     <section class="pb-5">
         <div class="container bg-light shadow-sm p-5" style="margin-top: -135px">
             {{ form_start(form, {'attr': {'class': 'row'}}) }}
-{#            <form class="row">#}
                 <div class="col-8 col-md-7 col-lg-4 mt-4 mt-lg-0">
                     {{ form_row(form.fromDate) }}
                 </div>
@@ -29,11 +28,12 @@
                     <button class="btn btn-primary" type="submit">Find your hero</button>
                 </div>
             {{ form_end(form) }}
-{#            </form>#}
         </div>
     </section>
 
-    {% include 'app/home/_processes.html.twig' %}
+    <section id="catalog">
+        {% include 'app/home/_processes.html.twig' %}
+    </section>
 
     {# Catalog here #}
     <div class="container">
@@ -50,75 +50,7 @@
                             <div class="row">
                                 {% for item in category.items %}
                                     <div class="col-12 {{ loop.last ? '' : 'mb-3' }}">
-                                        <div class="row">
-                                            <div class="col-12 col-md-5 col-lg-3">
-                                                <img src="https://placehold.co/1280x720" class="img-fluid object-fit-fill" alt="{{ item }}">
-                                            </div>
-
-                                            <div class="col-12 col-md-7 col-lg-9 pt-1 pb-0 d-flex align-items-start flex-column">
-                                                <div class="w-100">
-                                                    <h4 class="h3 fw-bold">{{ item }}</h4>
-
-                                                    <p>{{ item.description|nl2br }}</p>
-
-                                                    {% set amountPerDay = item.prices|first.amount %}
-                                                    {% for price in item.prices %}
-                                                        {% if durationInDays >= price.duration %}
-                                                            {% set amountPerDay = price.amount %}
-                                                        {% endif %}
-                                                    {% endfor %}
-
-                                                    <dl class="row">
-                                                        <dt class="col-sm-2">Min. Duration</dt>
-                                                        <dd class="col-sm-10 mb-0">{{ item.prices|first.duration }} {{ item.prices|first.duration > 1 ? 'days' : 'day'}}</dd>
-
-                                                        <dt class="col-sm-2">Price Per Day</dt>
-                                                        <dd class="col-sm-10 mb-0">{{ amountPerDay/100 }}</dd>
-
-                                                        <dt class="col-sm-2">Total Price</dt>
-                                                        <dd class="col-sm-10 mb-0">{{ amountPerDay/100 }} x {{ durationInDays }} {{ durationInDays > 1 ? 'days' : 'day'}} = {{ amountPerDay/100 * durationInDays }}</dd>
-                                                    </dl>
-                                                </div>
-
-                                                {# Search Item in UnavailableItems #}
-                                                {% set unavailableItem = unavailableItems|filter(unavailableItem => unavailableItem.id == item.id)|first %}
-
-                                                {# If Item is Unavailable #}
-                                                {#                                            {% if unavailableItem != false %}#}
-                                                {#                                                <div class="w-100 mt-auto">#}
-                                                {#                                                    <div class="d-flex align-items-end justify-content-end">#}
-                                                {#                                                        <button type="button" class="btn btn-sm btn-dark disabled" disabled>Unavailable</button>#}
-                                                {#                                                    </div>#}
-                                                {#                                                </div>#}
-                                                {#                                            {% else %}#}
-                                                {#                                                #}{# Search Item in Cart #}
-                                                {#                                                {% set cartItem = cart.cartItems|filter(cartItem => cartItem.item.id == item.id)|first %}#}
-
-                                                {#                                                #}{# If Item is in Cart #}
-                                                {#                                                {% if cartItem != false %}#}
-                                                {#                                                    <div class="w-100 mt-auto">#}
-                                                {#                                                        <div class="d-flex align-items-end justify-content-end">#}
-                                                {#                                                            <form hx-post="#}{#{{ path('app_cart_remove_item', {'id': item.id}) }}#}{#" hx-target="body" action="#}{#{{ path('app_cart_remove_item', {'id': item.id}) }}#}{#" method="post" class="row row-cols-auto justify-content-end form-cart-update">#}
-                                                {#                                                                <div class="col">#}
-                                                {#                                                                    <button type="submit" class="btn btn-sm btn-outline-danger">Remove from Cart</button>#}
-                                                {#                                                                </div>#}
-                                                {#                                                            </form>#}
-                                                {#                                                        </div>#}
-                                                {#                                                    </div>#}
-                                                {#                                                {% else %}#}
-                                                {#                                                    <div class="w-100 mt-auto">#}
-                                                {#                                                        <div class="d-flex align-items-end justify-content-end">#}
-                                                {#                                                            <form hx-post="#}{#{{ path('app_cart_add_item', {'id': item.id}) }}#}{#" hx-target="body" action="#}{#{{ path('app_cart_add_item', {'id': item.id}) }}#}{#" method="post" class="row row-cols-auto justify-content-end form-cart-update">#}
-                                                {#                                                                <div class="col">#}
-                                                {#                                                                    <button type="submit" class="btn btn-sm btn-dark border border-2 border-dark">Add to Cart</button>#}
-                                                {#                                                                </div>#}
-                                                {#                                                            </form>#}
-                                                {#                                                        </div>#}
-                                                {#                                                    </div>#}
-                                                {#                                                {% endif %}#}
-                                                {#                                            {% endif %}#}
-                                            </div>
-                                        </div>
+                                        {% include 'app/home/_item.html.twig' with {durationInDays: durationInDays, unavailableItems: unavailableItems, cart: cart, item: item} only %}
                                     </div>
                                 {% endfor %}
                             </div>

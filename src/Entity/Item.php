@@ -40,9 +40,16 @@ class Item
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: Price::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $prices;
 
+    /**
+     * @var Collection<int, LineOrder>
+     */
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: LineOrder::class, orphanRemoval: true)]
+    private Collection $lineOrders;
+
     public function __construct()
     {
         $this->prices = new ArrayCollection();
+        $this->lineOrders = new ArrayCollection();
     }
     
     public function __toString(): string
@@ -115,6 +122,36 @@ class Item
             // set the owning side to null (unless already changed)
             if ($price->getItem() === $this) {
                 $price->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LineOrder>
+     */
+    public function getLineOrders(): Collection
+    {
+        return $this->lineOrders;
+    }
+
+    public function addLineOrder(LineOrder $lineOrder): static
+    {
+        if (!$this->lineOrders->contains($lineOrder)) {
+            $this->lineOrders->add($lineOrder);
+            $lineOrder->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLineOrder(LineOrder $lineOrder): static
+    {
+        if ($this->lineOrders->removeElement($lineOrder)) {
+            // set the owning side to null (unless already changed)
+            if ($lineOrder->getItem() === $this) {
+                $lineOrder->setItem(null);
             }
         }
 

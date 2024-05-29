@@ -1,0 +1,63 @@
+<li class="nav-item dropdown me-2" data-bs-theme="light">
+    <a class="nav-link dropdown-toggle position-relative" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16" style="margin-top: -7px;">
+            <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6h-9.21z"/>
+        </svg>
+
+        {% if cart.cartItems|length %}
+            <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-secondary">{{ cart.cartItems|length }}</span>
+        {% endif %}
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-end py-2 px-3 text-body-secondary" style="min-width: 350px; max-width: 450px;">
+        {% if cart.cartItems|length %}
+            <ul class="list-group list-group-flush">
+                {% for cartItem in cart.cartItems %}
+                    {% set item = cartItem.item %}
+                    {% set total = 0 %}
+                    <li class="list-group-item px-0">
+                        <div class="fw-bolder">{{ item.name }}</div>
+
+                        <div class="row">
+                            <div class="col-6 text-muted">
+                                {{ cartItem.dailyAmount/100 }} x {{ cart.durationInDays }} {{ cart.durationInDays > 1 ? 'days' : 'day'}}
+                            </div>
+                            <div class="col-6 text-end fw-bolder">
+                                {{ cartItem.totalAmount/100 }}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+
+                <li class="list-group-item px-0 pt-3 pb-0 mb-0 text-end fw-bolder h5">
+                    Total : {{ cart.totalAmount/100 }}
+                </li>
+            </ul>
+
+            <div class="row mt-3">
+                <div class="col-6">
+                    <a class="btn btn-sm btn-outline-danger w-100 py-1" href="{{ path('app_cart_clear') }}">
+                        Clear
+                    </a>
+                </div>
+
+                <div class="col-6">
+                    <a class="btn btn-sm btn-primary border border-2 border-primary w-100 py-1" href="{#{{ path('app_cart_checkout') }}#}">
+                        Checkout
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center">
+                <div class="fw-bolder">
+                    Your cart is empty
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-astonished ms-1" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5M4.884 4.022a2 2 0 0 1 1.458-.048.5.5 0 0 0 .316-.948 2.996 2.996 0 0 0-2.167.077 3.091 3.091 0 0 0-.773.478c-.024.02-.047.042-.07.064l-.002.001a.5.5 0 0 0 .707.708l-.001.002.001-.002a1.558 1.558 0 0 1 .122-.1 2.09 2.09 0 0 1 .41-.232Zm6.232 0a1.997 1.997 0 0 0-1.458-.048.5.5 0 1 1-.316-.948 2.996 2.996 0 0 1 2.168.077 3.087 3.087 0 0 1 .773.478l.07.064v.001a.5.5 0 0 1-.706.708l.002.002-.002-.002a1.556 1.556 0 0 0-.122-.1 2.092 2.092 0 0 0-.41-.232ZM8 10c-.998 0-1.747.623-2.247 1.246-.383.478.08 1.06.687.98 1.04-.135 2.08-.135 3.12 0 .606.08 1.07-.502.687-.98C9.747 10.623 8.998 10 8 10"/>
+                    </svg>
+                </div>
+                <div class="text-body-secondary">Add some items to see them here</div>
+            </div>
+        {% endif %}
+    </div>
+</li>

@@ -43,7 +43,9 @@
                         </a>
                     </li>
                 {% else %}
-                    <li class="nav-item dropdown">
+                    {{ render(controller('App\\Controller\\App\\CartController::navbar')) }}
+
+                    <li class="nav-item dropdown" data-bs-theme="light">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             My Account
                         </a>

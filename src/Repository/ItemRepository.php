@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Item;
+use App\Entity\Order;
 use App\Model\Finder;
+use App\Model\Search;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -35,5 +37,58 @@ class ItemRepository extends ServiceEntityRepository
         }
 
         return $qb->getQuery();
+    }
+    
+    /**
+     * @param Search $search
+     *
+     * @return array<Item>
+     */
+    public function findItemsUnavailableBySearch(Search $search): array
+    {
+        $subQuery = $this
+            ->itemsUnavailableBetweenDatesQueryBuilder()
+            ->getDQL();
+        
+        $qb = $this->createQueryBuilder('i');
+        
+        $qb
+            ->andWhere($qb->expr()->In('i.id', $subQuery))
+            ->setParameter('from', $search->getFromDateTime())
+            ->setParameter('to', $search->getToDateTime())
+            ->setParameter('status', 'payment_failed');
+        ;
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    private function itemsUnavailableBetweenDatesQueryBuilder(?Order $orderToExclude = null)
+    {
+        $randomInt = \random_int(1, PHP_INT_MAX);
+        
+        $qb = $this
+            ->createQueryBuilder("i{$randomInt}")
+            ->select("i{$randomInt}.id")
+            ->join("i{$randomInt}.lineOrders", "lo{$randomInt}")
+            ->join("lo{$randomInt}.order", "o{$randomInt}")
+            ->andWhere("
+                (:from <= o{$randomInt}.fromDateTime AND :to >= o{$randomInt}.fromDateTime AND :to <= o{$randomInt}.toDateTime)
+                OR
+                (:from >= o{$randomInt}.fromDateTime AND :from <= o{$randomInt}.toDateTime AND :to >= o{$randomInt}.toDateTime)
+                OR
+                (:from >= o{$randomInt}.fromDateTime AND :from <= o{$randomInt}.toDateTime AND :to >= o{$randomInt}.fromDateTime AND :to <= o{$randomInt}.toDateTime)
+                OR
+                (:from <= o{$randomInt}.fromDateTime AND :to >= o{$randomInt}.toDateTime)
+                OR
+                (:from = o{$randomInt}.fromDateTime AND :to = o{$randomInt}.toDateTime)
+            ")
+            ->andWhere("o{$randomInt}.status != :status");
+        
+        if ($orderToExclude) {
+            $qb
+                ->andWhere("o{$randomInt}.id != :orderToExcludeId");
+        }
+        
+        return $qb;
     }
 }
